@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+:root {
+  /* Terminal colors */
+  --terminal-bg: #000000;
+  --terminal-fg: #00ff00;
+  --terminal-cursor: #00ff00;
+  --terminal-selection: #004400;
+  
+  /* CRT effects */
+  --scanline-opacity: 0.04;
+  --flicker-intensity: 0.15;
+  --glow-intensity: 2px;
+}
+
+@theme inline {
+  --color-terminal-bg: var(--terminal-bg);
+  --color-terminal-fg: var(--terminal-fg);
+  --color-terminal-cursor: var(--terminal-cursor);
+  --color-terminal-selection: var(--terminal-selection);
+  
+  /* Custom font families */
+  --font-mono: 'Courier New', 'Lucida Console', monospace;
+  --font-terminal: 'Courier New', 'Lucida Console', monospace;
+}
+
+body {
+  background: var(--terminal-bg);
+  color: var(--terminal-fg);
+  font-family: var(--font-terminal);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* CRT Screen Effects */
+.crt-screen {
+  background: var(--terminal-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    transparent 50%, 
+    rgba(0, 255, 0, var(--scanline-opacity)) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.crt-screen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  pointer-events: none;
+  z-index: 1001;
+}
+
+/* Terminal text effects */
+.terminal-text {
+  color: var(--terminal-fg);
+  text-shadow: 0 0 var(--glow-intensity) var(--terminal-fg);
+  font-family: var(--font-terminal);
+  line-height: 1.2;
+}
+
+.terminal-cursor {
+  background: var(--terminal-cursor);
+  animation: blink 1s infinite;
+}
+
+/* Terminal component styles */
+.terminal-content {
+  position: relative;
+  z-index: 10;
+}
+
+.terminal-input {
+  caret-color: transparent; /* Hide default cursor */
+}
+
+.terminal-input:focus {
+  outline: none;
+}
+
+.terminal-line {
+  margin-bottom: 2px;
+}
+
+.terminal-prompt {
+  color: var(--terminal-fg);
+  text-shadow: 0 0 var(--glow-intensity) var(--terminal-fg);
+}
+
+.processing-text {
+  color: var(--terminal-fg);
+  opacity: 0.7;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Glitch effects */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  animation: glitch-1 0.5s infinite;
+  color: #ff0000;
+  z-index: -1;
+}
+
+.glitch-text::after {
+  animation: glitch-2 0.5s infinite;
+  color: #0000ff;
+  z-index: -2;
+}
+
+@keyframes glitch-1 {
+  0%, 14%, 15%, 49%, 50%, 99%, 100% {
+    transform: translate(0);
+  }
+  15%, 49% {
+    transform: translate(-2px, 1px);
+  }
+}
+
+@keyframes glitch-2 {
+  0%, 20%, 21%, 62%, 63%, 99%, 100% {
+    transform: translate(0);
+  }
+  21%, 62% {
+    transform: translate(2px, -1px);
+  }
+}
+
+/* Screen flicker effect */
+.screen-flicker {
+  animation: flicker 0.1s infinite alternate;
+}
+
+@keyframes flicker {
+  0% { opacity: 1; }
+  100% { opacity: calc(1 - var(--flicker-intensity)); }
+}
