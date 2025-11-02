@@ -8,7 +8,6 @@
 - **electrical_buzz.mp3** - Intermittent electrical interference sounds
 
 ### Sound Effects
-- **keypress_01.mp3** through **keypress_05.mp3** - Individual mechanical keyboard sounds
 - **boot_sequence.mp3** - Retro computer startup beep sequence
 - **system_beep.mp3** - Single system notification beep
 - **error_sound.mp3** - Error notification sound (harsh beep)
