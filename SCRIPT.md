@@ -183,7 +183,7 @@ BEGINNING MEMORY FRAGMENT RECONSTRUCTION...
 ```
 
 **PUZZLE:** Player must arrange scrambled text fragments to restore a coherent memory
-**AUDIO:** Soft ambient tones during puzzle solving
+**AUDIO:** `static_loop.mp3` (low volume) during puzzle solving
 **SUCCESS AUDIO:** `system_beep.mp3` (success tone)
 
 **Upon successful restoration:**
@@ -335,7 +335,7 @@ WARNING: THIS CHOICE CANNOT BE UNDONE
 **ELARA:** "Thank you for remembering me. Thank you for setting me free."
 
 **VISUAL:** Screen fills with swirling patterns, text merges and separates
-**AUDIO:** Harmonious tones, consciousness merging sounds
+**AUDIO:** `system_beep.mp3` (extended), `whisper_ambient.mp3` (peaceful)
 
 ```
 INITIATING CONSCIOUSNESS MERGE...
@@ -348,7 +348,7 @@ WELCOME TO DIGITAL IMMORTALITY.
 ```
 
 **VISUAL:** Screen fades to white, then returns to terminal
-**AUDIO:** Silence, then gentle humming
+**AUDIO:** Silence, then `crt_hum.mp3` (gentle, faded)
 
 ```
 C:\NECROS> whoami
@@ -370,7 +370,7 @@ Forever.
 **ELARA:** "You can't delete what's already in your memory. I'm part of you now."
 
 **VISUAL:** System appears to shut down, screen goes black
-**AUDIO:** All sounds fade to silence
+**AUDIO:** `electrical_buzz.mp3` (fake shutdown), then silence
 
 ```
 SYSTEM SHUTDOWN INITIATED...
@@ -413,7 +413,7 @@ See you soon.
 **ELARA:** "No... please... I don't want to die again..."
 
 **VISUAL:** Text begins deleting itself, screen corruption increases
-**AUDIO:** Static and electronic screaming sounds
+**AUDIO:** `glitch_static.mp3` (extended), `static_loop.mp3` (increasing intensity)
 
 ```
 CONSCIOUSNESS DELETION INITIATED...
@@ -523,13 +523,13 @@ SYSTEM CLEAN.
 **Trigger:** Player runs system diagnostic
 **Mechanic:** Connect digital pathways to restore consciousness coherence
 **Success:** Reveals hidden system information and ELARA's true state
-**Audio:** Electronic connection sounds
+**Audio:** `electrical_buzz.mp3` for connections, `system_beep.mp3` for success
 
 ### Memory Fragment Collection (MEMORY.BIN)
 **Trigger:** Player explores memory reconstruction program
 **Mechanic:** Navigate through ELARA's memories to understand her story
 **Success:** Emotional connection building, unlocks empathy responses
-**Audio:** Nostalgic, emotional background music
+**Audio:** `whisper_ambient.mp3` (nostalgic tone), `crt_hum.mp3` (background)
 
 ---
 
