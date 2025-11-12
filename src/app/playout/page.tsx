@@ -698,7 +698,7 @@ const NecrOSPlayout = () => {
             disabled={audioEnabled}
             className="w-full px-3 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
           >
-            {audioEnabled ? '✓ Audio Ready' : 'Enable Audio (Click First!)'}
+            {audioEnabled ? '✓ Audio Ready' : 'Enable Audio'}
           </button>
           <button
             onClick={() => {
