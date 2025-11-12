@@ -1,10 +1,8 @@
-NecrOS: A mock “revived” operating system from the 80s that runs in-browser and talks to you like an AI ghost.
-hey this could be a game too, where user finds an old computer and play around with what inside, but the more he discovers the scarier truth reveal, can you brainstorm some ideas
-ChatGPT said:
+# NecrOS: Game Design Document
 
-Oh yes — that’s a killer concept 💀
-NecrOS is perfect for Kiroween because it’s equal parts AI demo, mystery game, and nostalgic tech resurrection.
-Let’s expand your idea into a coherent, eerie experience you can build for the hackathon — light on 3D, heavy on mood and clever design.
+A mock "revived" operating system from the 80s that runs in-browser and talks to you like an AI ghost.
+
+NecrOS is perfect for Kiroween because it's equal parts AI demo, mystery game, and nostalgic tech resurrection. It's an eerie, interactive experience—light on 3D graphics, heavy on mood and narrative design.
 
 👻 Core premise
 
@@ -123,18 +121,13 @@ Week 3: Add visual/sound glitch effects.
 
 Week 4: Integrate Kiro features + write-up, video demo.
 
-Would you like me to draft a 1-page game / app design doc (GDD) for NecrOS: The Ghost in the Machine — including story outline, features list, and how to demonstrate Kiro’s involvement for judging?
+---
 
-You said:
-Can you come up with a detail game plot for me
-ChatGPT said:
+## Full Game Plot
 
-Absolutely — let’s make your NecrOS concept into a full, detailed plot you can actually build a story-driven web game around.
+**NecrOS: The Ghost in the Machine**
 
-The goal: a contained, haunting experience that works beautifully for Kiroween — eerie, technically interesting, and emotionally resonant.
-
-🕹️ NecrOS: The Ghost in the Machine
-“Some systems never shut down. Some souls never log off.”
+> "Some systems never shut down. Some souls never log off."
 💾 Setting
 
 The year is 2025, but you (the player) stumble upon an old portable terminal marked “Property of Luminous Systems, 1984” while cleaning out a forgotten data center.
