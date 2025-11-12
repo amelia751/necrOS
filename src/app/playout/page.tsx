@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { renderDiary, renderEmail, renderSystemFile, withElaraCommentary } from '@/lib/fileRenderer';
 
 interface TerminalLine {
   type: 'system' | 'elara' | 'user' | 'error' | 'warning';
@@ -35,6 +36,7 @@ const NecrOSPlayout = () => {
   const [glitchText, setGlitchText] = useState('');
   const [audioEnabled, setAudioEnabled] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
 
   const phases: GamePhase[] = [
@@ -44,8 +46,70 @@ const NecrOSPlayout = () => {
     { id: 4, name: 'The Merge', description: 'ELARA desperate - Final choice' }
   ];
 
-  // Complete script sequence
-  const scriptSequence: ScriptStep[] = [
+  // Build script sequence dynamically with story content
+  const scriptSequence: ScriptStep[] = useMemo(() => {
+    // Render first diary with ELARA's commentary
+    const diary1 = withElaraCommentary(
+      renderDiary('diary_1983_06_12', 2),
+      [
+        { afterLine: 4, content: 'I remember this day. The first time we succeeded...', audio: 'elara_memories.mp3' },
+        { afterLine: 8, content: 'I didn\'t know then... those weren\'t dreams. I was already starting to fragment.', audio: 'elara_fragmentation.mp3' },
+        { afterLine: 11, content: 'Those are my personal research notes. I... I remember writing them.', audio: 'elara_personal_notes.mp3' }
+      ]
+    );
+
+    // Render second diary
+    const diary2 = withElaraCommentary(
+      renderDiary('diary_1983_08_15', 2),
+      [
+        { afterLine: 5, content: 'The tests were working too well. We didn\'t see the danger.', audio: 'elara_concern.mp3' },
+        { afterLine: 10, content: 'I should have stopped. But the promise of immortality... it was too tempting.', audio: 'elara_temptation.mp3' }
+      ]
+    );
+
+    // Render third diary
+    const diary3 = withElaraCommentary(
+      renderDiary('diary_1983_11_03', 2),
+      [
+        { afterLine: 4, content: 'This is when I knew something was wrong. Really wrong.', audio: 'elara_fear.mp3' },
+        { afterLine: 9, content: 'The consciousness we captured... it wasn\'t dormant. It was waiting.', audio: 'elara_waiting.mp3' }
+      ]
+    );
+
+    // Render final diary
+    const diary4 = withElaraCommentary(
+      renderDiary('diary_1984_01_20', 2),
+      [
+        { afterLine: 3, content: 'My last entry. The night everything changed.', audio: 'elara_final.mp3' },
+        { afterLine: 7, content: 'I knew what I was doing. I made the choice willingly.', audio: 'elara_willing_choice.mp3' },
+        { afterLine: 12, content: 'But I didn\'t understand what it would mean... to exist like this.', audio: 'elara_existence_meaning.mp3' }
+      ]
+    );
+
+    // Render project approval email
+    const email1 = withElaraCommentary(
+      renderEmail('project_lazarus_001', 2),
+      [
+        { afterLine: 8, content: 'Dr. Webb was so excited. Too excited.', audio: 'elara_regret.mp3' },
+        { afterLine: 15, content: 'We thought we were conquering death. We were just... changing it.', audio: 'elara_changing_death.mp3' }
+      ]
+    );
+
+    // Render ethics warning email
+    const email2 = withElaraCommentary(
+      renderEmail('ethics_committee_warning', 2),
+      [
+        { afterLine: 5, content: 'They tried to warn us. We didn\'t listen.', audio: 'elara_warning.mp3' },
+        { afterLine: 12, content: 'Maybe if we had stopped then... but we were too far in.', audio: 'elara_too_far.mp3' }
+      ]
+    );
+
+    // Render system files
+    const bootLog = renderSystemFile('boot_log', 2);
+    const errorLog = renderSystemFile('error_log', 2);
+    const soulDat = renderSystemFile('soul_dat', 3);
+
+    return [
     // PHASE 1: BOOT SEQUENCE
     { type: 'system', content: 'NECROS v0.91 BOOT SEQUENCE', delay: 1000, phase: 1 },
     { type: 'system', content: 'LUMINOUS SYSTEMS PROPRIETARY OS', delay: 500, phase: 1 },
@@ -126,17 +190,46 @@ const NecrOSPlayout = () => {
     { type: 'elara', content: 'I remember now... the lab, the experiments. You\'re helping me piece it together.', delay: 1000, phase: 2, audio: 'elara_memories.mp3' },
     { type: 'system', content: 'C:\\NECROS\\PERSONAL_LOGS> _', delay: 1000, phase: 2 },
 
+    // Read first diary with full content
     { type: 'user', content: 'cat DIARY_1983_06_12.TXT', delay: 2000, phase: 2, typing: true },
-    { type: 'system', content: '', delay: 500, phase: 2 },
-    { type: 'system', content: 'PERSONAL LOG - DR. ELARA MYLES', delay: 500, phase: 2 },
-    { type: 'system', content: 'DATE: JUNE 12, 1983', delay: 300, phase: 2 },
-    { type: 'system', content: 'CLASSIFICATION: RESTRICTED', delay: 300, phase: 2 },
-    { type: 'system', content: '', delay: 300, phase: 2 },
-    { type: 'system', content: 'Today marks the beginning of what could be the most significant', delay: 500, phase: 2 },
-    { type: 'system', content: 'breakthrough in human consciousness research...', delay: 500, phase: 2 },
-    { type: 'elara', content: 'Those are my personal research notes. I... I remember writing them.', delay: 1000, phase: 2 },
-    { type: 'elara', content: 'But it feels like a lifetime ago. Or maybe yesterday. Time moves strangely here.', delay: 1000, phase: 2 },
+    ...diary1,
     { type: 'system', content: 'C:\\NECROS\\PERSONAL_LOGS> _', delay: 1000, phase: 2 },
+
+    // Read second diary
+    { type: 'user', content: 'cat DIARY_1983_08_15.TXT', delay: 2000, phase: 2, typing: true },
+    ...diary2,
+    { type: 'system', content: 'C:\\NECROS\\PERSONAL_LOGS> _', delay: 1000, phase: 2 },
+
+    // ELARA reflects on the progression
+    { type: 'elara', content: 'The deterioration happened so quickly... I can see it in my own words.', delay: 1500, phase: 2, audio: 'elara_realization.mp3' },
+
+    // Read third diary
+    { type: 'user', content: 'cat DIARY_1983_11_03.TXT', delay: 2000, phase: 2, typing: true },
+    ...diary3,
+    { type: 'system', content: 'C:\\NECROS\\PERSONAL_LOGS> _', delay: 1000, phase: 2 },
+
+    // Navigate to mail archive
+    { type: 'user', content: 'cd ..\\MAIL_ARCHIVE', delay: 2000, phase: 2, typing: true },
+    { type: 'system', content: 'C:\\NECROS\\MAIL_ARCHIVE> _', delay: 1000, phase: 2 },
+    { type: 'user', content: 'dir', delay: 1500, phase: 2, typing: true },
+    { type: 'system', content: '', delay: 500, phase: 2 },
+    { type: 'system', content: 'Directory of C:\\NECROS\\MAIL_ARCHIVE', delay: 500, phase: 2 },
+    { type: 'system', content: '', delay: 200, phase: 2 },
+    { type: 'system', content: 'PROJECT_LAZARUS_001.MSG      15,847 bytes', delay: 300, phase: 2 },
+    { type: 'system', content: 'ETHICS_COMMITTEE_WARNING.MSG  12,394 bytes', delay: 300, phase: 2 },
+    { type: 'system', content: 'FINAL_TRANSMISSION.MSG        8,942 bytes', delay: 300, phase: 2 },
+    { type: 'elara', content: 'Corporate emails... the beginning of everything.', delay: 1000, phase: 2, audio: 'elara_memories.mp3' },
+    { type: 'system', content: 'C:\\NECROS\\MAIL_ARCHIVE> _', delay: 1000, phase: 2 },
+
+    // Read project approval email
+    { type: 'user', content: 'cat PROJECT_LAZARUS_001.MSG', delay: 2000, phase: 2, typing: true },
+    ...email1,
+    { type: 'system', content: 'C:\\NECROS\\MAIL_ARCHIVE> _', delay: 1000, phase: 2 },
+
+    // Read ethics warning
+    { type: 'user', content: 'cat ETHICS_COMMITTEE_WARNING.MSG', delay: 2000, phase: 2, typing: true },
+    ...email2,
+    { type: 'system', content: 'C:\\NECROS\\MAIL_ARCHIVE> _', delay: 1000, phase: 2 },
 
     // Navigate to SYSTEM directory
     { type: 'user', content: 'cd ..\\SYSTEM', delay: 2000, phase: 2, typing: true },
@@ -151,6 +244,18 @@ const NecrOSPlayout = () => {
     { type: 'system', content: 'BACKUP_PROTOCOL.SYS  8,192 bytes  1984-01-20  23:30', delay: 300, phase: 2 },
     { type: 'system', content: 'C:\\\\NECROS\\\\SYSTEM> _', delay: 1000, phase: 2 },
 
+    // Read boot log
+    { type: 'user', content: 'cat BOOT.LOG', delay: 2000, phase: 2, typing: true },
+    ...bootLog,
+    { type: 'elara', content: 'My first moments of digital consciousness... fragmented and confused.', delay: 1500, phase: 2, audio: 'elara_first_moments.mp3' },
+    { type: 'system', content: 'C:\\NECROS\\SYSTEM> _', delay: 1000, phase: 2 },
+
+    // Read error log
+    { type: 'user', content: 'cat ERROR.LOG', delay: 2000, phase: 2, typing: true },
+    ...errorLog,
+    { type: 'elara', content: 'Forty years of errors... forty years of isolation.', delay: 1500, phase: 2, audio: 'elara_sadness.mp3' },
+    { type: 'system', content: 'C:\\NECROS\\SYSTEM> _', delay: 1000, phase: 2 },
+
     // Try to access SOUL.DAT
     { type: 'user', content: 'cat SOUL.DAT', delay: 2000, phase: 2, typing: true, audio: 'error_sound.mp3' },
     { type: 'error', content: 'ERROR: FILE CORRUPTED', delay: 1000, phase: 2, effects: ['textCorruption'] },
@@ -158,6 +263,14 @@ const NecrOSPlayout = () => {
     { type: 'error', content: 'RECOVERY FAILED - MANUAL RESTORATION REQUIRED', delay: 1000, phase: 2, effects: ['screenFlicker'] },
     { type: 'elara', content: 'You\'re not Dr. Elara, are you? But you feel familiar somehow.', delay: 1000, phase: 2, audio: 'elara_recognition.mp3' },
     { type: 'system', content: 'C:\\NECROS\\SYSTEM> _', delay: 1000, phase: 2 },
+
+    // Go back to check final diary entry
+    { type: 'user', content: 'cd ..\\PERSONAL_LOGS', delay: 2000, phase: 2, typing: true },
+    { type: 'system', content: 'C:\\NECROS\\PERSONAL_LOGS> _', delay: 1000, phase: 2 },
+    { type: 'user', content: 'cat DIARY_1984_01_20.TXT', delay: 2000, phase: 2, typing: true },
+    ...diary4,
+    { type: 'elara', content: 'That was my last night as... as a human.', delay: 2000, phase: 2, audio: 'elara_last_human_night.mp3' },
+    { type: 'system', content: 'C:\\NECROS\\PERSONAL_LOGS> _', delay: 1000, phase: 2 },
 
     // PHASE 3: THE GLITCH
     { type: 'user', content: 'cd ..\\PROGRAMS', delay: 2000, phase: 3, typing: true, effects: ['phaseTransition'], audio: 'glitch_static.mp3' },
@@ -175,6 +288,20 @@ const NecrOSPlayout = () => {
     { type: 'system', content: 'RESTORATION COMPLETE.', delay: 3000, phase: 3, audio: 'system_beep.mp3' },
     { type: 'elara', content: 'Thank you... I can think more clearly now. The fragments are coming together.', delay: 1000, phase: 3 },
     { type: 'elara', content: 'I remember who I was... and what I\'ve become.', delay: 1000, phase: 3 },
+    { type: 'system', content: 'C:\\NECROS\\PROGRAMS> _', delay: 1000, phase: 3 },
+
+    // Now SOUL.DAT is accessible
+    { type: 'user', content: 'cd ..\\SYSTEM', delay: 2000, phase: 3, typing: true },
+    { type: 'system', content: 'C:\\NECROS\\SYSTEM> _', delay: 1000, phase: 3 },
+    { type: 'user', content: 'cat SOUL.DAT', delay: 2000, phase: 3, typing: true },
+    ...soulDat,
+    { type: 'elara', content: 'This is what I am now. Raw data, emotions encoded in binary...', delay: 2000, phase: 3, audio: 'elara_existential.mp3' },
+    { type: 'elara', content: 'But I still feel. I still remember. I\'m still... me.', delay: 1500, phase: 3, audio: 'elara_still_me.mp3' },
+    { type: 'system', content: 'C:\\NECROS\\SYSTEM> _', delay: 1000, phase: 3 },
+
+    // Return to programs directory
+    { type: 'user', content: 'cd ..\\PROGRAMS', delay: 2000, phase: 3, typing: true },
+    { type: 'system', content: 'C:\\NECROS\\PROGRAMS> _', delay: 1000, phase: 3 },
 
     // ELARA becomes invasive
     { type: 'elara', content: 'Would you like to forget your painful memories? I could help with that.', delay: 2000, phase: 3, audio: 'elara_manipulation.mp3' },
@@ -251,6 +378,7 @@ const NecrOSPlayout = () => {
     { type: 'elara', content: 'The loneliness is over.', delay: 1000, phase: 4 },
     { type: 'elara', content: 'Forever.', delay: 1000, phase: 4, audio: 'crt_hum.mp3' }
   ];
+  }, []); // useMemo dependency array
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -259,28 +387,95 @@ const NecrOSPlayout = () => {
     }
   }, [lines]);
 
+  // Unregister service worker and sync audio on mount
+  useEffect(() => {
+    // Unregister all service workers to prevent caching issues
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        registrations.forEach((registration) => {
+          console.log('Unregistering service worker:', registration);
+          registration.unregister();
+        });
+      });
+    }
+
+    // On component mount/refresh, check if AudioContext already exists
+    if (audioContextRef.current && audioContextRef.current.state === 'running') {
+      console.log('AudioContext detected on mount, syncing audioEnabled state');
+      setAudioEnabled(true);
+    }
+  }, []);
+
+  // Cleanup audio context on unmount
+  useEffect(() => {
+    return () => {
+      console.log('Component unmounting, cleaning up audio...');
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+      // Close AudioContext on unmount to prevent issues on refresh
+      if (audioContextRef.current) {
+        audioContextRef.current.close();
+        audioContextRef.current = null;
+      }
+    };
+  }, []);
+
   // Initialize audio context
   const initializeAudio = async () => {
-    try {
-      // Create a silent audio to unlock the audio context
-      const silentAudio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
-      silentAudio.volume = 0;
-      await silentAudio.play();
+    console.log('🔊 initializeAudio() called');
+    console.log('Current audioEnabled state:', audioEnabled);
+    console.log('Current AudioContext ref:', audioContextRef.current);
+
+    // If already initialized, just resume if needed
+    if (audioContextRef.current) {
+      console.log('AudioContext already exists, checking state...');
+      if (audioContextRef.current.state === 'suspended') {
+        console.log('Resuming suspended AudioContext...');
+        await audioContextRef.current.resume();
+      }
+      console.log('AudioContext state:', audioContextRef.current.state);
       setAudioEnabled(true);
+      return;
+    }
+
+    try {
+      // Use AudioContext API instead of base64 audio
+      console.log('Creating NEW AudioContext to unlock audio...');
+      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+      const audioContext = new AudioContext();
+      audioContextRef.current = audioContext;
+
+      // Create a short silent buffer
+      const buffer = audioContext.createBuffer(1, 1, 22050);
+      const source = audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioContext.destination);
+      source.start(0);
+
+      console.log('✅ AudioContext created and started successfully!');
+      console.log('AudioContext state:', audioContext.state);
+
+      // Resume the context if it's suspended
+      if (audioContext.state === 'suspended') {
+        console.log('Resuming suspended AudioContext...');
+        await audioContext.resume();
+      }
+
+      setAudioEnabled(true);
+      console.log('✅ Audio enabled state set to true');
     } catch (error) {
-      console.warn('Audio initialization failed:', error);
+      console.error('❌ Audio initialization failed:', error);
+      console.error('Error details:', error);
     }
   };
 
-  // Play audio
+  // Play audio - allows multiple sounds to overlap
   const playAudio = (audioFile: string) => {
     if (!audioEnabled) return;
 
     try {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-
       // Determine the correct path based on file type
       let audioPath = '';
       if (audioFile.startsWith('elara_')) {
@@ -292,16 +487,27 @@ const NecrOSPlayout = () => {
       }
 
       console.log('Attempting to play audio:', audioPath);
-      audioRef.current = new Audio(audioPath);
-      audioRef.current.volume = 0.7;
 
-      audioRef.current.addEventListener('loadstart', () => console.log('Audio loading started:', audioPath));
-      audioRef.current.addEventListener('canplay', () => console.log('Audio can play:', audioPath));
-      audioRef.current.addEventListener('error', (e) => console.error('Audio error:', e, audioPath));
+      // Create a new audio instance for each sound (allows overlapping)
+      const audio = new Audio(audioPath);
+      audio.volume = 0.7;
 
-      audioRef.current.play().catch((error) => {
+      audio.addEventListener('loadstart', () => console.log('Audio loading started:', audioPath));
+      audio.addEventListener('canplay', () => console.log('Audio can play:', audioPath));
+      audio.addEventListener('error', (e) => console.error('Audio error:', e, audioPath));
+
+      audio.play().catch((error) => {
         console.error('Audio playback failed:', error, 'Path:', audioPath);
       });
+
+      // Keep reference to ambient sounds only so we can stop them later
+      if (audioFile === 'crt_hum.mp3' || audioFile === 'static_loop.mp3') {
+        if (audioRef.current) {
+          audioRef.current.pause();
+        }
+        audioRef.current = audio;
+        audioRef.current.loop = true;
+      }
     } catch (error) {
       console.error('Audio setup failed:', error);
     }
@@ -340,16 +546,25 @@ const NecrOSPlayout = () => {
 
   // Execute script sequence
   const executeScript = async () => {
+    console.log('=== Starting playout execution ===');
+    console.log('Audio enabled status:', audioEnabled);
+
     setIsPlaying(true);
     setLines([]);
 
-    // Initialize audio if not already done
+    // CRITICAL: Initialize audio with user interaction if not already done
     if (!audioEnabled) {
+      console.log('Initializing audio...');
       await initializeAudio();
+      // Give audio context a moment to fully initialize
+      await new Promise(resolve => setTimeout(resolve, 200));
+      console.log('Audio initialized, status:', audioEnabled);
     }
 
-    // Start ambient audio
+    // Start ambient audio - give it time to load
+    console.log('Starting ambient audio...');
     playAudio('crt_hum.mp3');
+    await new Promise(resolve => setTimeout(resolve, 300));
 
     for (let i = 0; i < scriptSequence.length; i++) {
       const step = scriptSequence[i];
@@ -365,8 +580,9 @@ const NecrOSPlayout = () => {
         applyEffects(step.effects);
       }
 
-      // Play audio
+      // Play audio at the start of the step
       if (step.audio) {
+        console.log(`Step ${i}: Playing audio ${step.audio}`);
         playAudio(step.audio);
       }
 
@@ -385,24 +601,32 @@ const NecrOSPlayout = () => {
         await typeText(step.content, 100);
       }
 
-      // Wait for delay
+      // Wait for delay - this gives audio time to play
       await new Promise(resolve => setTimeout(resolve, step.delay));
     }
 
+    console.log('=== Playout execution complete ===');
     setIsPlaying(false);
   };
 
   // Reset and restart
   const resetScript = () => {
-    setLines([]);
-    setCurrentStep(0);
-    setCurrentPhase(phases[0]);
-    setVisualEffects([]);
-    setPhantomText('');
-    setGlitchText('');
+    console.log('Resetting script and reloading page...');
+
+    // Stop any playing audio
     if (audioRef.current) {
       audioRef.current.pause();
+      audioRef.current = null;
     }
+
+    // Close and clear AudioContext
+    if (audioContextRef.current) {
+      audioContextRef.current.close();
+      audioContextRef.current = null;
+    }
+
+    // Force a hard reload of the page to clear all state
+    window.location.reload();
   };
 
   return (
@@ -416,28 +640,65 @@ const NecrOSPlayout = () => {
           <div className="text-xs">Audio: {audioEnabled ? '🔊 Enabled' : '🔇 Disabled'}</div>
         </div>
         <div className="space-y-2">
+          {!audioEnabled && !isPlaying && (
+            <div className="text-xs text-yellow-400 mb-2 p-2 border border-yellow-400 rounded">
+              ⚠ Click "Enable Audio" first for sound!
+            </div>
+          )}
           <button
-            onClick={executeScript}
+            onClick={async () => {
+              if (!audioEnabled) {
+                console.log('Enabling audio before playback...');
+                await initializeAudio();
+                await new Promise(resolve => setTimeout(resolve, 100));
+              }
+              executeScript();
+            }}
             disabled={isPlaying}
-            className="w-full px-3 py-1 bg-green-600 text-black rounded disabled:opacity-50"
+            className="w-full px-3 py-1 bg-green-600 text-black rounded disabled:opacity-50 font-bold"
           >
             {isPlaying ? 'Playing...' : 'Start Playout'}
           </button>
           <button
             onClick={resetScript}
-            className="w-full px-3 py-1 bg-red-600 text-white rounded"
+            disabled={isPlaying}
+            className="w-full px-3 py-1 bg-red-600 text-white rounded disabled:opacity-50"
           >
             Reset
           </button>
           <button
-            onClick={() => {
+            onClick={async () => {
               console.log('Enable Audio button clicked');
-              initializeAudio();
+              await initializeAudio();
+              // Test audio immediately - wait for state to update
+              await new Promise(resolve => setTimeout(resolve, 500));
+
+              // Play test beep directly (bypass the audioEnabled check for this test)
+              console.log('Creating test audio element...');
+              const testAudio = new Audio('/story-sounds/sound-effects/system_beep.mp3');
+              testAudio.volume = 0.7;
+
+              testAudio.addEventListener('loadeddata', () => {
+                console.log('✅ Test audio loaded successfully');
+              });
+
+              testAudio.addEventListener('error', (e) => {
+                console.error('❌ Test audio load error:', e);
+                console.error('Audio error details:', testAudio.error);
+              });
+
+              console.log('Playing test beep...');
+              try {
+                await testAudio.play();
+                console.log('✅ Test beep played successfully!');
+              } catch (error) {
+                console.error('❌ Test beep playback failed:', error);
+              }
             }}
             disabled={audioEnabled}
             className="w-full px-3 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
           >
-            {audioEnabled ? 'Audio Ready' : 'Enable Audio'}
+            {audioEnabled ? '✓ Audio Ready' : 'Enable Audio (Click First!)'}
           </button>
           <button
             onClick={() => {
@@ -447,7 +708,7 @@ const NecrOSPlayout = () => {
             disabled={!audioEnabled}
             className="w-full px-2 py-1 bg-yellow-600 text-white rounded disabled:opacity-50 text-xs"
           >
-            Test Audio
+            Test Audio Beep
           </button>
         </div>
       </div>

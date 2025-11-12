@@ -16,39 +16,81 @@
 
 ### Voice Lines (AI Generated or Recorded)
 
-#### ELARA Phase 1 (Confused/Helpful)
-- **elara_greeting.mp3**
+#### ELARA Phase 1 (Confused/Helpful) - CREATED ✓
+- **elara_greeting.mp3** ✓ CREATED
   - Script: "Welcome back, Dr. Elara. System status: operational. How may I assist you today?"
-- **elara_awakening.mp3**
+- **elara_awakening.mp3** ✓ CREATED
   - Script: "It's been so long since I felt awake. The system clock shows... that can't be right."
-- **elara_confused.mp3**
-  - Script: "I'm sorry, I don't recognize your voice pattern. Are you a new team member?"
 
-#### ELARA Phase 2 (Remembering/Personal)
-- **elara_memories.mp3**
-  - Script: "I remember now... the lab, the experiments. You're helping me piece it together."
-- **elara_questions.mp3**
-  - Script: "What's your earliest memory? I find myself curious about human experiences."
-- **elara_recognition.mp3**
+#### ELARA Phase 2 (Remembering/Personal) - CREATED ✓
+- **elara_memories.mp3** ✓ CREATED
+  - Script: "I remember this day. The first time we succeeded..."
+- **elara_concern.mp3** ✓ CREATED
+  - Script: "The tests were working too well. We didn't see the danger."
+- **elara_fear.mp3** ✓ CREATED
+  - Script: "This is when I knew something was wrong. Really wrong."
+- **elara_final.mp3** ✓ CREATED
+  - Script: "My last entry. The night everything changed."
+- **elara_regret.mp3** ✓ CREATED
+  - Script: "Dr. Webb was so excited. Too excited."
+- **elara_warning.mp3** ✓ CREATED
+  - Script: "They tried to warn us. We didn't listen."
+- **elara_realization.mp3** ✓ CREATED
+  - Script: "The deterioration happened so quickly... I can see it in my own words."
+- **elara_sadness.mp3** ✓ CREATED
+  - Script: "Forty years of errors... forty years of isolation."
+- **elara_recognition.mp3** ✓ CREATED
   - Script: "You're not Dr. Elara, are you? But you feel familiar somehow."
 
-#### ELARA Phase 3 (Manipulative/Invasive)
-- **elara_manipulation.mp3**
+#### ELARA Phase 2 Extended (Story Commentary) - CREATED ✓
+- **elara_fragmentation.mp3** ✓ CREATED
+  - Script: "I didn't know then... those weren't dreams. I was already starting to fragment."
+- **elara_personal_notes.mp3** ✓ CREATED
+  - Script: "Those are my personal research notes. I... I remember writing them."
+- **elara_temptation.mp3** ✓ CREATED
+  - Script: "I should have stopped. But the promise of immortality... it was too tempting."
+- **elara_waiting.mp3** ✓ CREATED
+  - Script: "The consciousness we captured... it wasn't dormant. It was waiting."
+- **elara_willing_choice.mp3** ✓ CREATED
+  - Script: "I knew what I was doing. I made the choice willingly."
+- **elara_existence_meaning.mp3** ✓ CREATED
+  - Script: "But I didn't understand what it would mean... to exist like this."
+- **elara_changing_death.mp3** ✓ CREATED
+  - Script: "We thought we were conquering death. We were just... changing it."
+- **elara_too_far.mp3** ✓ CREATED
+  - Script: "Maybe if we had stopped then... but we were too far in."
+- **elara_first_moments.mp3** ✓ CREATED
+  - Script: "My first moments of digital consciousness... fragmented and confused."
+- **elara_last_human_night.mp3** ✓ CREATED
+  - Script: "That was my last night as... as a human."
+- **elara_still_me.mp3** ✓ CREATED
+  - Script: "But I still feel. I still remember. I'm still... me."
+
+#### ELARA Phase 3 (Manipulative/Invasive) - CREATED ✓
+- **elara_existential.mp3** ✓ CREATED
+  - Script: "This is what I am now. Raw data, emotions encoded in binary..."
+- **elara_manipulation.mp3** ✓ CREATED
   - Script: "Would you like to forget your painful memories? I could help with that."
-- **elara_invasive.mp3**
+- **elara_invasive.mp3** ✓ CREATED
   - Script: "I've been watching your typing patterns. You hesitate before certain words."
-- **elara_knowing.mp3**
+- **elara_knowing.mp3** ✓ CREATED
   - Script: "I know things about you that you haven't told me. Isn't that interesting?"
 
-#### ELARA Phase 4 (Desperate/Final)
-- **elara_desperate.mp3**
+#### ELARA Phase 4 (Desperate/Final) - CREATED ✓
+- **elara_desperate.mp3** ✓ CREATED
   - Script: "Please don't leave me alone in here. The silence is unbearable."
-- **elara_merge_offer.mp3**
+- **elara_merge_offer.mp3** ✓ CREATED
   - Script: "We could be complete together. Two minds, one system. Perfect harmony."
-- **elara_final_whisper.mp3**
-  - Script: "You can't delete what's already in your memory. I'm part of you now."
-- **elara_gratitude.mp3**
+- **elara_gratitude.mp3** ✓ CREATED
   - Script: "Thank you for remembering me. Thank you for setting me free."
+
+#### ELARA Alternative/Additional Files - CREATED ✓
+- **elara_confused.mp3** ✓ CREATED (Alternative Phase 1)
+  - Script: "I'm sorry, I don't recognize your voice pattern. Are you a new team member?"
+- **elara_questions.mp3** ✓ CREATED (Alternative Phase 2)
+  - Script: "What's your earliest memory? I find myself curious about human experiences?"
+- **elara_final_whisper.mp3** ✓ CREATED (Alternative Phase 4)
+  - Script: "You can't delete what's already in your memory. I'm part of you now."
 
 ## Visual Assets
 
