@@ -20,10 +20,10 @@ export interface TerminalState {
 }
 
 export interface TerminalLine {
-  type: 'input' | 'output' | 'system' | 'ai';
+  type: 'input' | 'output' | 'system' | 'ai' | 'error' | 'warning' | 'elara';
   content: string;
   timestamp: number;
-  effects?: GlitchEffect[];
+  effects?: string[];
 }
 
 export interface StoryState {
